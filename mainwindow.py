@@ -2,11 +2,13 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+import main
 
 
 class mainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setWindowFlags(Qt.Window)
         self.setWindowTitle("Driver/Kart Param Editor")
         self.setMinimumSize(350, 150)
         self.setCentralWidget(TabWidget(self))
@@ -60,3 +62,4 @@ class TabWidget(QWidget):
         # Add tabs to widget
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
+        
