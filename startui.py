@@ -1,4 +1,5 @@
 import sys
+import os
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -16,6 +17,9 @@ class selectui(QWidget):
     def createwindow(self,windowWidth,windowHeight):
         parent = None
         super().__init__()
+        if not os.path.isdir('./param'):
+            os.mkdir('./param')
+
         self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint)
         self.resize(windowWidth,windowHeight)
 
