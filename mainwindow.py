@@ -13,7 +13,8 @@ class mainWindow(QMainWindow):
         self.setMinimumSize(350, 150)
         self.setCentralWidget(TabWidget(self))
 
-        #self.show()
+        # self.show()
+
 
 class TabWidget(QWidget):
     def __init__(self, parent):
@@ -29,11 +30,15 @@ class TabWidget(QWidget):
         self.writetab = QWidget()
         self.comparetab = QWidget()
         self.previewtab = QWidget()
+        self.acceltab = QWidget()
+        self.itemtab = QWidget()
         self.tabs.resize(300, 200)
   
         # Add tabs
         self.tabs.addTab(self.writetab, "Write")
         self.tabs.addTab(self.comparetab, "Compare")
+        self.tabs.addTab(self.itemtab, "Items")
+        self.tabs.addTab(self.acceltab, "Graph")
         self.tabs.addTab(self.previewtab, "Preview")
   
         # Create write tab
@@ -56,6 +61,20 @@ class TabWidget(QWidget):
         self.lp.setText("This is the Preview tab")
         self.previewtab.layout.addWidget(self.lp)
         self.previewtab.setLayout(self.previewtab.layout)
+
+        # Create acceleration graph tab
+        self.acceltab.layout = QVBoxLayout(self)
+        self.la = QLabel()
+        self.la.setText("This is the Graph tab")
+        self.acceltab.layout.addWidget(self.la)
+        self.acceltab.setLayout(self.acceltab.layout)
+
+        # Create item tab (ItemSlot.bin support)
+        self.itemtab.layout = QVBoxLayout(self)
+        self.li = QLabel()
+        self.li.setText("This is the Item tab")
+        self.itemtab.layout.addWidget(self.li)
+        self.itemtab.setLayout(self.itemtab.layout)
   
         self.setStyleSheet(style)
 

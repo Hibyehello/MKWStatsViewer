@@ -7,8 +7,10 @@ import startui
 
 application = QApplication(sys.argv)
 
+
 def quitevent():
     sys.exit(application.exec_())
+
 
 def main():
     start = startui.startui()
