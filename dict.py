@@ -1,8 +1,10 @@
 import statisticsmkw
 
 stats = statisticsmkw.Statistics()
-param = "./param/kartParam.bin"
-vehicle = stats.parse_param(param)
+kart_param = "./param/kartParam.bin"
+driver_param = "./param/driverParam.bin"
+vehicle = stats.parse_param(kart_param)
+character = stats.parse_param(driver_param)
 
 sdf_kart = vehicle[0]
 mdf_kart = vehicle[1]
@@ -40,3 +42,31 @@ ld_bike = vehicle[32]
 se_bike = vehicle[33]
 me_bike = vehicle[34]
 le_bike = vehicle[35]
+
+mr = character[0]
+bpc = character[1]
+wl = character[2]
+kp = character[3]
+bds = character[4]
+ka = character[5]
+bmr = character[6]
+lg = character[7]
+ko = character[8]
+dk = character[9]
+ys = character[10]
+wr = character[11]
+blg = character[12]
+kk = character[13]
+nk = character[14]
+ds = character[15]
+pc = character[16]
+ca = character[17]
+dd = character[18]
+kt = character[19]
+jr = character[20]
+bk = character[21]
+fk = character[22]
+rs = character[23]
+s_mii = character[23]
+m_mii = character[24]
+l_mii = character[25]
