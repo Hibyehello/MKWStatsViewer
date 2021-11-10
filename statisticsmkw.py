@@ -133,6 +133,9 @@ class Statistics:
                 params.append(tire_distance)
 
                 vehicles.append(params)
+            
+        return vehicles
+
 
     # Only use internally
     # Send with section_bytes slice, returns rounded float from slice

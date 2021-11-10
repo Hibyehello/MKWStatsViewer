@@ -44,9 +44,26 @@ class TabWidget(QWidget):
         # Create write tab
         self.writetab.layout = QVBoxLayout(self)
         self.lw = QLabel()
-        self.lw.setText("This is the write tab")
+        self.lw.setText("This is the edit tab")
+
+        # Need these Defined now
+        self.driverselect = QComboBox(self)
+        self.driverselect.addItems(["Mario", "Baby Peach, Waluigi"])
+        self.kartselect = QComboBox(self)
+        self.kartselect.addItems(["Standard Kart S", "Standard Kart M", "Standard Kart L"])
+
+
+        self.paramselect = QComboBox(self)
+        self.paramselect.addItems(["Kart","Driver"])
+        self.paramselect.currentTextChanged.connect(lambda: self.setEditWindow())
+
         self.writetab.layout.addWidget(self.lw)
+        self.writetab.layout.addWidget(self.paramselect)
+        self.writetab.layout.addWidget(self.kartselect)
+        self.writetab.layout.addWidget(self.driverselect)
         self.writetab.setLayout(self.writetab.layout)
+        self.driverselect.hide()
+
 
         # Create compare tab
         self.comparetab.layout = QVBoxLayout(self)
@@ -81,4 +98,12 @@ class TabWidget(QWidget):
         # Add tabs to widget
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
-        
+
+    def setEditWindow(self):
+        index = self.paramselect.currentIndex()
+        if index == 0:
+            self.driverselect.hide()
+            self.kartselect.show()
+        else:
+            self.kartselect.hide()
+            self.driverselect.show()

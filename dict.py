@@ -1,0 +1,43 @@
+import statisticsmkw
+
+stats = statisticsmkw.Statistics()
+param = "./param/kartParam.bin"
+vehicle = stats.parse_param(param)
+
+sdf_kart = vehicle[0]
+mdf_kart = vehicle[1]
+ldf_kart = vehicle[2]
+sa_kart = vehicle[3]
+ma_kart = vehicle[4]
+la_kart = vehicle[5]
+sb_kart = vehicle[6]
+mb_kart = vehicle[7]
+lb_kart = vehicle[8]
+sc_kart = vehicle[9]
+mc_kart = vehicle[10]
+lc_kart = vehicle[11]
+sd_kart = vehicle[12]
+md_kart = vehicle[13]
+ld_kart = vehicle[14]
+se_kart = vehicle[15]
+me_kart = vehicle[16]
+le_kart = vehicle[17]
+sdf_bike = vehicle[18]
+mdf_bike = vehicle[19]
+ldf_bike = vehicle[20]
+sa_bike = vehicle[21]
+ma_bike = vehicle[22]
+la_bike = vehicle[23]
+sb_bike = vehicle[24]
+mb_bike = vehicle[25]
+lb_bike = vehicle[26]
+sc_bike = vehicle[27]
+mc_bike = vehicle[28]
+lc_bike = vehicle[29]
+sd_bike = vehicle[30]
+md_bike = vehicle[31]
+ld_bike = vehicle[32]
+se_bike = vehicle[33]
+me_bike = vehicle[34]
+le_bike = vehicle[35]
+
