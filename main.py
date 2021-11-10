@@ -14,7 +14,7 @@ def quitevent():
 
 
 def main():
-    start = startui.startui()
+    start = startui.startUI()
     start.show()
     application.aboutToQuit.connect(quitevent())
     
