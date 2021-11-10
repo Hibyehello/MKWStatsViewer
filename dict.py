@@ -40,4 +40,3 @@ ld_bike = vehicle[32]
 se_bike = vehicle[33]
 me_bike = vehicle[34]
 le_bike = vehicle[35]
-

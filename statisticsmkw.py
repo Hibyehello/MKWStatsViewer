@@ -136,7 +136,6 @@ class Statistics:
             
         return vehicles
 
-
     # Only use internally
     # Send with section_bytes slice, returns rounded float from slice
     def round_float(self, hexString):
