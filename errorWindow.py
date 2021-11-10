@@ -1,10 +1,9 @@
 from PyQt5.QtWidgets import QMessageBox
 
-global errlist
-
 errlist = ["kartParam.bin and/or driverParam.bin are modded"]
 
-def error(err):
+
+def error():
     msg = QMessageBox()
     msg.setIcon(QMessageBox.Critical)
     msg.setStyleSheet("QLabel{min-width: 150px;}")
