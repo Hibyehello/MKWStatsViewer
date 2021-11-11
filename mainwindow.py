@@ -55,7 +55,7 @@ class TabWidget(QWidget):
         self.tabs.addTab(self.previewtab, "Preview")
   
         # Create write tab
-        self.writetab.layout = QVBoxLayout(self)
+        self.writetab.layout = QGridLayout(self)
         self.lw = QLabel()
         self.lw.setText("This is the edit tab")
 
@@ -87,10 +87,10 @@ class TabWidget(QWidget):
         self.driverselect.currentTextChanged.connect(lambda: self.canBeSelected())
         self.kartselect.currentTextChanged.connect(lambda: self.canBeSelected())
 
-        self.writetab.layout.addWidget(self.lw)
-        self.writetab.layout.addWidget(self.paramselect)
-        self.writetab.layout.addWidget(self.kartselect)
-        self.writetab.layout.addWidget(self.driverselect)
+        self.writetab.layout.addWidget(self.lw, 3, 2)
+        self.writetab.layout.addWidget(self.paramselect, 1, 1)
+        self.writetab.layout.addWidget(self.kartselect, 2, 1)
+        self.writetab.layout.addWidget(self.driverselect, 2, 1)
         self.writetab.setLayout(self.writetab.layout)
         self.driverselect.hide()
 
