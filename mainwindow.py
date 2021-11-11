@@ -79,7 +79,11 @@ class TabWidget(QWidget):
         self.lw.setText("This is the edit tab")
 
         # Need these Defined now
+        self.editScroll = QScrollArea(self)
+        self.editWidget = QWidget(self)
+        self.editWidget.layout = QGridLayout(self)
         self.driverselect = QComboBox(self)
+        self.kartselect = QComboBox(self)
 
         for entry in range(0, len(self.characters)):
             if self.character_icons[entry] != '':
@@ -92,7 +96,6 @@ class TabWidget(QWidget):
                 self.driverselect.addItem(self.characters[entry])
 
         self.driverselect.setCurrentIndex(1)
-        self.kartselect = QComboBox(self)
 
         for entry in range(0, len(self.vehicles)):
             if self.vehicle_icons[entry] != '':
@@ -125,11 +128,19 @@ class TabWidget(QWidget):
         self.paramselect.currentTextChanged.connect(lambda: self.setEditWindow())
         self.driverselect.currentTextChanged.connect(lambda: self.canBeSelected())
         self.kartselect.currentTextChanged.connect(lambda: self.canBeSelected())
+        self.editScroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.editScroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.editScroll.setWidgetResizable(True)
+        self.editScroll.setWidget(self.editWidget)
+        self.editWidget.setLayout(self.editWidget.layout)
+        self.editWidget.layout.addWidget(self.lw, 1, 1)
 
-        self.writetab.layout.addWidget(self.lw, 3, 2)
+        #self.writetab.layout.addWidget(self.lw, 3, 2)
         self.writetab.layout.addWidget(self.paramselect, 1, 1)
         self.writetab.layout.addWidget(self.kartselect, 2, 1)
         self.writetab.layout.addWidget(self.driverselect, 2, 1)
+        self.writetab.layout.addWidget(self.editScroll, 3, 1)
+        self.editWidget.layout.addWidget(self.lw, 1, 1)
         self.writetab.setLayout(self.writetab.layout)
         self.driverselect.hide()
 
