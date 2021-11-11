@@ -1,4 +1,5 @@
 import sys
+from os.path import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -9,30 +10,48 @@ class mainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowFlags(Qt.Window)
-        self.setWindowTitle("Driver/Kart Param Editor")
+        self.setWindowTitle('StatsViewer')
         self.setMinimumSize(350, 150)
         self.setCentralWidget(TabWidget(self))
 
         # self.show()
+
 
 class TabWidget(QWidget):
     def __init__(self, parent):
         super(QWidget, self).__init__(parent)
         self.layout = QVBoxLayout(self)
 
-        self.characters = ["---Small---", "Baby Peach", "Baby Daisy", "Dry Bones", "Baby Mario",
-                      "Toad", "Baby Luigi", "Toadette", "Koopa Troopa", "Small Mii", "---Medium---",
-                      "Mario", "Luigi", "Yoshi", "Daisy", "Peach", "Birdo", "Diddy Kong", "Bowser Jr.",
-                      "Medium Mii", "---Large---", "Waluigi", "Bowser", "Donkey Kong", "Wario", "King Boo",
-                      "Dry Bowser", "Funky Kong", "Rosalina", "Large Mii"]
+        self.characters = ["---Small---", "Baby Mario", "Baby Luigi", "Baby Peach", "Baby Daisy",
+                           "Toad", "Toadette", "Koopa Troopa", "Dry Bones", "Small Mii", "---Medium---",
+                           "Mario", "Luigi", "Peach", "Daisy", "Yoshi", "Birdo", "Diddy Kong", "Bowser Jr.",
+                           "Medium Mii", "---Large---", "Wario", "Waluigi", "Donkey Kong", "Bowser", "King Boo",
+                           "Rosalina", "Funky Kong", "Dry Bowser", "Large Mii"]
+
+        self.character_icons = ['', 'icons/bmr.png', 'icons/blg.png', 'icons/bpc.png', 'icons/bds.png', 'icons/ko.png',
+                                'icons/kk.png', 'icons/nk.png', 'icons/ka.png', 'icons/mii.png', '', 'icons/mr.png',
+                                'icons/lg.png', 'icons/pc.png', 'icons/ds.png', 'icons/ys.png', 'icons/ca.png',
+                                'icons/dd.png', 'icons/jr.png', 'icons/mii.png', '', 'icons/wr.png', 'icons/wl.png',
+                                'icons/dk.png', 'icons/kp.png', 'icons/kt.png', 'icons/rs.png', 'icons/fk.png',
+                                'icons/bk.png', 'icons/mii.png']
 
         self.vehicles = ["---Small---", "Standard Kart S", "Baby Booster", "Mini Beast", "Cheep Charger",
-                    "Tiny Titan", "Blue Falcon", "Standard Bike S", "Bullet Bike", "Bit Bike", "Quacker",
-                    "Magikruiser", "Jet Bubble", "---Medium---", "Standard Kart M", "Classic Dragster",
-                    "Wild Wing", "Super Blooper", "Daytripper", "Sprinter", "Standard Bike M", "Mach Bike",
-                    "Sugarscoot", "Zip Zip", "Sneakster", "Dolphin Dasher", "---Large---", "Standard Kart L",
-                    "Offroader", "Flame Flyer", "Piranha Prowler", "Jetsetter", "Honeycoupe", "Standard Bike L",
-                    "Flame Runner", "Wario Bike", "Shooting Star", "Spear", "Phantom"]
+                         "Tiny Titan", "Blue Falcon", "Standard Bike S", "Bullet Bike", "Bit Bike", "Quacker",
+                         "Magikruiser", "Jet Bubble", "---Medium---", "Standard Kart M", "Classic Dragster",
+                         "Wild Wing", "Super Blooper", "Daytripper", "Sprinter", "Standard Bike M", "Mach Bike",
+                         "Sugarscoot", "Zip Zip", "Sneakster", "Dolphin Dasher", "---Large---", "Standard Kart L",
+                         "Offroader", "Flame Flyer", "Piranha Prowler", "Jetsetter", "Honeycoupe", "Standard Bike L",
+                         "Flame Runner", "Wario Bike", "Shooting Star", "Spear", "Phantom"]
+
+        self.vehicle_icons = ['', 'icons/sdf_kart.png', 'icons/sa_kart.png', 'icons/sb_kart.png', 'icons/sc_kart.png',
+                              'icons/sd_kart.png', 'icons/se_kart.png', 'icons/sdf_bike.png', 'icons/sa_bike.png',
+                              'icons/sb_bike.png', 'icons/sc_bike.png', 'icons/sd_bike.png', 'icons/se_bike.png', '',
+                              'icons/mdf_kart.png', 'icons/ma_kart.png', 'icons/mb_kart.png', 'icons/mc_kart.png',
+                              'icons/md_kart.png', 'icons/me_kart.png', 'icons/mdf_bike.png', 'icons/ma_bike.png',
+                              'icons/mb_bike.png', 'icons/mc_bike.png', 'icons/md_bike.png', 'icons/me_bike.png', '',
+                              'icons/ldf_kart.png', 'icons/la_kart.png', 'icons/lb_kart.png', 'icons/lc_kart.png',
+                              'icons/ld_kart.png', 'icons/le_kart.png', 'icons/ldf_bike.png', 'icons/la_bike.png',
+                              'icons/lb_bike.png', 'icons/lc_bike.png', 'icons/ld_bike.png', 'icons/le_bike.png']
 
         style = """QTabWidget::tab-bar{
                 alignment: left;
@@ -61,10 +80,30 @@ class TabWidget(QWidget):
 
         # Need these Defined now
         self.driverselect = QComboBox(self)
-        self.driverselect.addItems(self.characters)
+
+        for entry in range(0, len(self.characters)):
+            if self.character_icons[entry] != '':
+                if exists(self.character_icons[entry]):
+                    icon = QIcon(self.character_icons[entry])
+                    self.driverselect.addItem(icon, self.characters[entry])
+                else:
+                    self.driverselect.addItem(self.characters[entry])
+            else:
+                self.driverselect.addItem(self.characters[entry])
+
         self.driverselect.setCurrentIndex(1)
         self.kartselect = QComboBox(self)
-        self.kartselect.addItems(self.vehicles)
+
+        for entry in range(0, len(self.vehicles)):
+            if self.vehicle_icons[entry] != '':
+                if exists(self.vehicle_icons[entry]):
+                    icon = QIcon(self.vehicle_icons[entry])
+                    self.kartselect.addItem(icon, self.vehicles[entry])
+                else:
+                    self.kartselect.addItem(self.vehicles[entry])
+            else:
+                self.kartselect.addItem(self.vehicles[entry])
+
         self.kartselect.setCurrentIndex(1)
 
         self.lastselecteddriver = self.driverselect.currentIndex()
