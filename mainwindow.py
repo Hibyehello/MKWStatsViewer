@@ -138,7 +138,7 @@ class TabWidget(QWidget):
             self.driverselect.show()
 
     def canBeSelected(self):
-        self.unselectable = ["---Small---", "---Medium---", "---Large"]
+        self.unselectable = ["---Small---", "---Medium---", "---Large---"]
         if not(self.driverselect.currentText() in self.unselectable):
             self.lastselecteddriver = self.driverselect.currentIndex()
         else:
