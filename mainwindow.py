@@ -15,11 +15,24 @@ class mainWindow(QMainWindow):
 
         # self.show()
 
-
 class TabWidget(QWidget):
     def __init__(self, parent):
         super(QWidget, self).__init__(parent)
         self.layout = QVBoxLayout(self)
+
+        self.characters = ["---Small---", "Baby Peach", "Baby Daisy", "Dry Bones", "Baby Mario",
+                      "Toad", "Baby Luigi", "Toadette", "Koopa Troopa", "Small Mii", "---Medium---",
+                      "Mario", "Luigi", "Yoshi", "Daisy", "Peach", "Birdo", "Diddy Kong", "Bowser Jr.",
+                      "Medium Mii", "---Large---", "Waluigi", "Bowser", "Donkey Kong", "Wario", "King Boo",
+                      "Dry Bowser", "Funky Kong", "Rosalina", "Large Mii"]
+
+        self.vehicles = ["---Small---", "Standard Kart S", "Baby Booster", "Mini Beast", "Cheep Charger",
+                    "Tiny Titan", "Blue Falcon", "Standard Bike S", "Bullet Bike", "Bit Bike", "Quacker",
+                    "Magikruiser", "Jet Bubble", "---Medium---", "Standard Kart M", "Classic Dragster",
+                    "Wild Wing", "Super Blooper", "Daytripper", "Sprinter", "Standard Bike M", "Mach Bike",
+                    "Sugarscoot", "Zip Zip", "Sneakster", "Dolphin Dasher", "---Large---", "Standard Kart L",
+                    "Offroader", "Flame Flyer", "Piranha Prowler", "Jetsetter", "Honeycoupe", "Standard Bike L",
+                    "Flame Runner", "Wario Bike", "Shooting Star", "Spear", "Phantom"]
 
         style = """QTabWidget::tab-bar{
                 alignment: left;
@@ -48,13 +61,31 @@ class TabWidget(QWidget):
 
         # Need these Defined now
         self.driverselect = QComboBox(self)
-        self.driverselect.addItems(["Mario", "Baby Peach", "Waluigi"])
+        self.driverselect.addItems(self.characters)
+        self.driverselect.setCurrentIndex(1)
         self.kartselect = QComboBox(self)
-        self.kartselect.addItems(["Standard Kart S", "Standard Kart M", "Standard Kart L"])
+        self.kartselect.addItems(self.vehicles)
+        self.kartselect.setCurrentIndex(1)
+
+        self.lastselecteddriver = self.driverselect.currentIndex()
+        self.lastselectedkart = self.driverselect.currentIndex()
+
+        font = QFont("Arial", 15, QFont.Bold)
+
+        item = self.driverselect.model()
+        item.item(0, 0).setFont(font)
+        item.item(10, 0).setFont(font)
+        item.item(20, 0).setFont(font)
+        item = self.kartselect.model()
+        item.item(0, 0).setFont(font)
+        item.item(13, 0).setFont(font)
+        item.item(26, 0).setFont(font)
 
         self.paramselect = QComboBox(self)
-        self.paramselect.addItems(["Kart" , "Driver"])
+        self.paramselect.addItems(["Kart", "Driver"])
         self.paramselect.currentTextChanged.connect(lambda: self.setEditWindow())
+        self.driverselect.currentTextChanged.connect(lambda: self.canBeSelected())
+        self.kartselect.currentTextChanged.connect(lambda: self.canBeSelected())
 
         self.writetab.layout.addWidget(self.lw)
         self.writetab.layout.addWidget(self.paramselect)
@@ -105,3 +136,15 @@ class TabWidget(QWidget):
         else:
             self.kartselect.hide()
             self.driverselect.show()
+
+    def canBeSelected(self):
+        self.unselectable = ["---Small---", "---Medium---", "---Large"]
+        if not(self.driverselect.currentText() in self.unselectable):
+            self.lastselecteddriver = self.driverselect.currentIndex()
+        else:
+            self.driverselect.setCurrentIndex(self.lastselecteddriver)
+        if not(self.kartselect.currentText() in self.unselectable):
+            self.lastselectedkart = self.kartselect.currentIndex()
+        else:
+            self.kartselect.setCurrentIndex(self.lastselectedkart)
+

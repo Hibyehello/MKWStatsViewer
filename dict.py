@@ -1,4 +1,5 @@
 import statisticsmkw
+from os.path import exists
 
 stats = statisticsmkw.Statistics()
 kart_param = "./param/kartParam.bin"

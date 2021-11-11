@@ -43,7 +43,6 @@ class selectUI(QWidget):
 
     def windowclose(self):
         self.close()
-        firsttime()
 
     def kartparam(self):
         options = QFileDialog.Options()
@@ -97,11 +96,11 @@ class startUI(QWidget):
                 self.close()
             else:
                 errorWindow.error(0)
-                self.selectui = selectui()
+                self.selectui = selectUI()
                 self.selectui.createwindow(300, 300)
                 self.selectui.show()
 
         else:
-            self.selectui = selectui()
+            self.selectui = selectUI()
             self.selectui.createwindow(300, 300)
             self.selectui.show()
