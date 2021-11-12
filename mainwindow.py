@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import main
+import dict
 
 
 class mainWindow(QMainWindow):
@@ -53,6 +54,8 @@ class TabWidget(QWidget):
                               'icons/ld_kart.png', 'icons/le_kart.png', 'icons/ldf_bike.png', 'icons/la_bike.png',
                               'icons/lb_bike.png', 'icons/lc_bike.png', 'icons/ld_bike.png', 'icons/le_bike.png']
 
+        self.current_displayed = []
+
         style = """QTabWidget::tab-bar{
                 alignment: left;
                 }"""
@@ -75,8 +78,6 @@ class TabWidget(QWidget):
   
         # Create write tab
         self.writetab.layout = QGridLayout(self)
-        self.lw = QLabel()
-        self.lw.setText("This is the edit tab")
 
         # Need these Defined now
         self.editScroll = QScrollArea(self)
@@ -108,9 +109,12 @@ class TabWidget(QWidget):
                 self.kartselect.addItem(self.vehicles[entry])
 
         self.kartselect.setCurrentIndex(1)
+        self.current_displayed = dict.sdf_kart
 
         self.lastselecteddriver = self.driverselect.currentIndex()
         self.lastselectedkart = self.driverselect.currentIndex()
+
+        self.kartselect.currentIndexChanged.connect(self.onChange)
 
         font = QFont("Arial", 15, QFont.Bold)
 
@@ -123,6 +127,12 @@ class TabWidget(QWidget):
         item.item(13, 0).setFont(font)
         item.item(26, 0).setFont(font)
 
+        # Create textbox
+        self.speedLabel = QLabel()
+        self.speedLabel.setText('Speed')
+        self.speedTextbox = QLineEdit(self)
+        self.speedTextbox.setText(str(self.current_displayed[9]))
+
         self.paramselect = QComboBox(self)
         self.paramselect.addItems(["Kart", "Driver"])
         self.paramselect.currentTextChanged.connect(lambda: self.setEditWindow())
@@ -133,14 +143,14 @@ class TabWidget(QWidget):
         self.editScroll.setWidgetResizable(True)
         self.editScroll.setWidget(self.editWidget)
         self.editWidget.setLayout(self.editWidget.layout)
-        self.editWidget.layout.addWidget(self.lw, 1, 1)
+        self.editWidget.layout.addWidget(self.speedLabel, 0, 0)
 
         #self.writetab.layout.addWidget(self.lw, 3, 2)
         self.writetab.layout.addWidget(self.paramselect, 1, 1)
         self.writetab.layout.addWidget(self.kartselect, 2, 1)
         self.writetab.layout.addWidget(self.driverselect, 2, 1)
         self.writetab.layout.addWidget(self.editScroll, 3, 1)
-        self.editWidget.layout.addWidget(self.lw, 1, 1)
+        self.editWidget.layout.addWidget(self.speedTextbox, 0, 1)
         self.writetab.setLayout(self.writetab.layout)
         self.driverselect.hide()
 
@@ -197,4 +207,15 @@ class TabWidget(QWidget):
             self.lastselectedkart = self.kartselect.currentIndex()
         else:
             self.kartselect.setCurrentIndex(self.lastselectedkart)
+
+    # Update the speed textbox when kartselect index changes
+    # NOTE: This will probably suck to implement everything this way
+    def onChange(self, i):
+        if i == 1:
+            self.current_displayed = dict.sdf_kart
+        elif i == 2:
+            self.current_displayed = dict.sa_kart
+
+        self.speedTextbox.setText(str(self.current_displayed[9]))
+
 
