@@ -5,6 +5,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import main
 import dict
+import Statbox
 
 
 class mainWindow(QMainWindow):
@@ -56,6 +57,8 @@ class TabWidget(QWidget):
 
         self.current_displayed = []
 
+        self.Statbox = Statbox.StatBox(1)
+
         style = """QTabWidget::tab-bar{
                 alignment: left;
                 }"""
@@ -81,8 +84,6 @@ class TabWidget(QWidget):
 
         # Need these Defined now
         self.editScroll = QScrollArea(self)
-        self.editWidget = QWidget(self)
-        self.editWidget.layout = QGridLayout(self)
         self.driverselect = QComboBox(self)
         self.kartselect = QComboBox(self)
 
@@ -128,10 +129,10 @@ class TabWidget(QWidget):
         item.item(26, 0).setFont(font)
 
         # Create textbox
-        self.speedLabel = QLabel()
+        """self.speedLabel = QLabel()
         self.speedLabel.setText('Speed')
         self.speedTextbox = QLineEdit(self)
-        self.speedTextbox.setText(str(self.current_displayed[9]))
+        self.speedTextbox.setText(str(self.current_displayed[9]))"""
 
         self.paramselect = QComboBox(self)
         self.paramselect.addItems(["Kart", "Driver"])
@@ -141,16 +142,14 @@ class TabWidget(QWidget):
         self.editScroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.editScroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.editScroll.setWidgetResizable(True)
-        self.editScroll.setWidget(self.editWidget)
-        self.editWidget.setLayout(self.editWidget.layout)
-        self.editWidget.layout.addWidget(self.speedLabel, 0, 0)
+        self.editScroll.setWidget(self.Statbox.stats(self.current_displayed))
+        #self.editWidget.layout.addWidget(self.speedLabel, 0, 0)
 
         #self.writetab.layout.addWidget(self.lw, 3, 2)
         self.writetab.layout.addWidget(self.paramselect, 1, 1)
         self.writetab.layout.addWidget(self.kartselect, 2, 1)
         self.writetab.layout.addWidget(self.driverselect, 2, 1)
         self.writetab.layout.addWidget(self.editScroll, 3, 1)
-        self.editWidget.layout.addWidget(self.speedTextbox, 0, 1)
         self.writetab.setLayout(self.writetab.layout)
         self.driverselect.hide()
 
@@ -215,7 +214,76 @@ class TabWidget(QWidget):
             self.current_displayed = dict.sdf_kart
         elif i == 2:
             self.current_displayed = dict.sa_kart
+        elif i == 3:
+            self.current_displayed = dict.sb_kart
+        elif i == 4:
+            self.current_displayed = dict.sc_kart
+        elif i == 5:
+            self.current_displayed = dict.sd_kart
+        elif i == 6:
+            self.current_displayed = dict.se_kart
+        elif i == 7:
+            self.current_displayed = dict.sdf_bike
+        elif i == 8:
+            self.current_displayed = dict.sa_bike
+        elif i == 9:
+            self.current_displayed = dict.sb_bike
+        elif i == 10:
+            self.current_displayed = dict.sc_bike
+        elif i == 11:
+            self.current_displayed = dict.sd_bike
+        elif i == 12:
+            self.current_displayed = dict.se_bike
+        elif i == 14:
+            self.current_displayed = dict.mdf_kart
+        elif i == 15:
+            self.current_displayed = dict.ma_kart
+        elif i == 16:
+            self.current_displayed = dict.mb_kart
+        elif i == 17:
+            self.current_displayed = dict.mc_kart
+        elif i == 18:
+            self.current_displayed = dict.md_kart
+        elif i == 19:
+            self.current_displayed = dict.me_kart
+        elif i == 20:
+            self.current_displayed = dict.mdf_bike
+        elif i == 21:
+            self.current_displayed = dict.ma_bike
+        elif i == 22:
+            self.current_displayed = dict.mb_bike
+        elif i == 23:
+            self.current_displayed = dict.mc_bike
+        elif i == 24:
+            self.current_displayed = dict.md_bike
+        elif i == 25:
+            self.current_displayed = dict.me_bike
+        elif i == 27:
+            self.current_displayed = dict.ldf_kart
+        elif i == 28:
+            self.current_displayed = dict.la_kart
+        elif i == 29:
+            self.current_displayed = dict.lb_kart
+        elif i == 30:
+            self.current_displayed = dict.lc_kart
+        elif i == 31:
+            self.current_displayed = dict.ld_kart
+        elif i == 32:
+            self.current_displayed = dict.le_kart
+        elif i == 33:
+            self.current_displayed = dict.ldf_bike
+        elif i == 34:
+            self.current_displayed = dict.la_bike
+        elif i == 35:
+            self.current_displayed = dict.lb_bike
+        elif i == 36:
+            self.current_displayed = dict.lc_bike
+        elif i == 37:
+            self.current_displayed = dict.ld_bike
+        elif i == 38:
+            self.current_displayed = dict.le_bike
 
-        self.speedTextbox.setText(str(self.current_displayed[9]))
+        print(self.current_displayed)
+        self.editScroll.setWidget(self.Statbox.stats(self.current_displayed))
 
 
