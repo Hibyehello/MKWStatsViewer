@@ -4,70 +4,20 @@ from os.path import exists
 stats = statisticsmkw.Statistics()
 kart_param = "./param/kartParam.bin"
 driver_param = "./param/driverParam.bin"
-vehicle = stats.parse_param(kart_param)
-character = stats.parse_param(driver_param)
+vehicle_ids = stats.parse_param(kart_param)
+character_ids = stats.parse_param(driver_param)
 
-sdf_kart = vehicle[0]
-mdf_kart = vehicle[1]
-ldf_kart = vehicle[2]
-sa_kart = vehicle[3]
-ma_kart = vehicle[4]
-la_kart = vehicle[5]
-sb_kart = vehicle[6]
-mb_kart = vehicle[7]
-lb_kart = vehicle[8]
-sc_kart = vehicle[9]
-mc_kart = vehicle[10]
-lc_kart = vehicle[11]
-sd_kart = vehicle[12]
-md_kart = vehicle[13]
-ld_kart = vehicle[14]
-se_kart = vehicle[15]
-me_kart = vehicle[16]
-le_kart = vehicle[17]
-sdf_bike = vehicle[18]
-mdf_bike = vehicle[19]
-ldf_bike = vehicle[20]
-sa_bike = vehicle[21]
-ma_bike = vehicle[22]
-la_bike = vehicle[23]
-sb_bike = vehicle[24]
-mb_bike = vehicle[25]
-lb_bike = vehicle[26]
-sc_bike = vehicle[27]
-mc_bike = vehicle[28]
-lc_bike = vehicle[29]
-sd_bike = vehicle[30]
-md_bike = vehicle[31]
-ld_bike = vehicle[32]
-se_bike = vehicle[33]
-me_bike = vehicle[34]
-le_bike = vehicle[35]
+vehicle = [vehicle_ids[0x0], vehicle_ids[0x3], vehicle_ids[0x6], vehicle_ids[0x9], vehicle_ids[0xC], vehicle_ids[0xF],
+           vehicle_ids[0x12], vehicle_ids[0x15], vehicle_ids[0x18], vehicle_ids[0x1B], vehicle_ids[0x1E],
+           vehicle_ids[0x21], vehicle_ids[0x1], vehicle_ids[0x4], vehicle_ids[0x7], vehicle_ids[0xA], vehicle_ids[0xD],
+           vehicle_ids[0x10], vehicle_ids[0x13], vehicle_ids[0x16], vehicle_ids[0x19], vehicle_ids[0x1C],
+           vehicle_ids[0x1F], vehicle_ids[0x22], vehicle_ids[0x2], vehicle_ids[0x5], vehicle_ids[0x8], vehicle_ids[0xB],
+           vehicle_ids[0xE], vehicle_ids[0x11], vehicle_ids[0x14], vehicle_ids[0x17], vehicle_ids[0x1A],
+           vehicle_ids[0x1D], vehicle_ids[0x20], vehicle_ids[0x23]]
 
-mr = character[0]
-bpc = character[1]
-wl = character[2]
-kp = character[3]
-bds = character[4]
-ka = character[5]
-bmr = character[6]
-lg = character[7]
-ko = character[8]
-dk = character[9]
-ys = character[10]
-wr = character[11]
-blg = character[12]
-kk = character[13]
-nk = character[14]
-ds = character[15]
-pc = character[16]
-ca = character[17]
-dd = character[18]
-kt = character[19]
-jr = character[20]
-bk = character[21]
-fk = character[22]
-rs = character[23]
-s_mii = character[23]
-m_mii = character[24]
-l_mii = character[25]
+character = [character_ids[0x6], character_ids[0xC], character_ids[0x1], character_ids[0x4], character_ids[0x8],
+             character_ids[0xD], character_ids[0xE], character_ids[0x5], character_ids[0x17], character_ids[0x0],
+             character_ids[0x7], character_ids[0x10], character_ids[0xF], character_ids[0xA], character_ids[0x11],
+             character_ids[0x12], character_ids[0x14], character_ids[0x18], character_ids[0xB], character_ids[0x2],
+             character_ids[0x9], character_ids[0x3], character_ids[0x13], character_ids[0x17], character_ids[0x16],
+             character_ids[0x15], character_ids[0x19]]

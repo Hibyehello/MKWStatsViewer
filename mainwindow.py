@@ -110,12 +110,13 @@ class TabWidget(QWidget):
                 self.kartselect.addItem(self.vehicles[entry])
 
         self.kartselect.setCurrentIndex(1)
-        self.current_displayed = dict.sdf_kart
+        self.current_displayed = dict.vehicle[0]
 
         self.lastselecteddriver = self.driverselect.currentIndex()
         self.lastselectedkart = self.driverselect.currentIndex()
 
-        self.kartselect.currentIndexChanged.connect(self.onChange)
+        self.kartselect.currentIndexChanged.connect(self.onKartChange)
+        self.driverselect.currentIndexChanged.connect(self.onDriverChange)
 
         font = QFont("Arial", 15, QFont.Bold)
 
@@ -143,9 +144,9 @@ class TabWidget(QWidget):
         self.editScroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.editScroll.setWidgetResizable(True)
         self.editScroll.setWidget(self.Statbox.stats(self.current_displayed))
-        #self.editWidget.layout.addWidget(self.speedLabel, 0, 0)
+        # self.editWidget.layout.addWidget(self.speedLabel, 0, 0)
 
-        #self.writetab.layout.addWidget(self.lw, 3, 2)
+        # self.writetab.layout.addWidget(self.lw, 3, 2)
         self.writetab.layout.addWidget(self.paramselect, 1, 1)
         self.writetab.layout.addWidget(self.kartselect, 2, 1)
         self.writetab.layout.addWidget(self.driverselect, 2, 1)
@@ -198,92 +199,35 @@ class TabWidget(QWidget):
 
     def canBeSelected(self):
         self.unselectable = ["---Small---", "---Medium---", "---Large---"]
-        if not(self.driverselect.currentText() in self.unselectable):
+        if not self.driverselect.currentText() in self.unselectable:
             self.lastselecteddriver = self.driverselect.currentIndex()
         else:
             self.driverselect.setCurrentIndex(self.lastselecteddriver)
-        if not(self.kartselect.currentText() in self.unselectable):
+        if not self.kartselect.currentText() in self.unselectable:
             self.lastselectedkart = self.kartselect.currentIndex()
         else:
             self.kartselect.setCurrentIndex(self.lastselectedkart)
 
     # Update the speed textbox when kartselect index changes
     # NOTE: This will probably suck to implement everything this way
-    def onChange(self, i):
-        if i == 1:
-            self.current_displayed = dict.sdf_kart
-        elif i == 2:
-            self.current_displayed = dict.sa_kart
-        elif i == 3:
-            self.current_displayed = dict.sb_kart
-        elif i == 4:
-            self.current_displayed = dict.sc_kart
-        elif i == 5:
-            self.current_displayed = dict.sd_kart
-        elif i == 6:
-            self.current_displayed = dict.se_kart
-        elif i == 7:
-            self.current_displayed = dict.sdf_bike
-        elif i == 8:
-            self.current_displayed = dict.sa_bike
-        elif i == 9:
-            self.current_displayed = dict.sb_bike
-        elif i == 10:
-            self.current_displayed = dict.sc_bike
-        elif i == 11:
-            self.current_displayed = dict.sd_bike
-        elif i == 12:
-            self.current_displayed = dict.se_bike
-        elif i == 14:
-            self.current_displayed = dict.mdf_kart
-        elif i == 15:
-            self.current_displayed = dict.ma_kart
-        elif i == 16:
-            self.current_displayed = dict.mb_kart
-        elif i == 17:
-            self.current_displayed = dict.mc_kart
-        elif i == 18:
-            self.current_displayed = dict.md_kart
-        elif i == 19:
-            self.current_displayed = dict.me_kart
-        elif i == 20:
-            self.current_displayed = dict.mdf_bike
-        elif i == 21:
-            self.current_displayed = dict.ma_bike
-        elif i == 22:
-            self.current_displayed = dict.mb_bike
-        elif i == 23:
-            self.current_displayed = dict.mc_bike
-        elif i == 24:
-            self.current_displayed = dict.md_bike
-        elif i == 25:
-            self.current_displayed = dict.me_bike
-        elif i == 27:
-            self.current_displayed = dict.ldf_kart
-        elif i == 28:
-            self.current_displayed = dict.la_kart
-        elif i == 29:
-            self.current_displayed = dict.lb_kart
-        elif i == 30:
-            self.current_displayed = dict.lc_kart
-        elif i == 31:
-            self.current_displayed = dict.ld_kart
-        elif i == 32:
-            self.current_displayed = dict.le_kart
-        elif i == 33:
-            self.current_displayed = dict.ldf_bike
-        elif i == 34:
-            self.current_displayed = dict.la_bike
-        elif i == 35:
-            self.current_displayed = dict.lb_bike
-        elif i == 36:
-            self.current_displayed = dict.lc_bike
-        elif i == 37:
-            self.current_displayed = dict.ld_bike
-        elif i == 38:
-            self.current_displayed = dict.le_bike
+    def onKartChange(self, i):
+        i -= 1
+        if i > 13:
+            i -= 1
+            if i > 26:
+                i -= 1
+
+        self.current_displayed = dict.vehicle[i]
 
         print(self.current_displayed)
         self.editScroll.setWidget(self.Statbox.stats(self.current_displayed))
 
+    def onDriverChange(self, i):
+        i -= 1
+        if i > 10:
+            i -= 1
+            if i > 20:
+                i -= 1
 
+        self.current_displayed = dict.character[i]
+        self.editScroll.setWidget(self.Statbox.stats(self.current_displayed))

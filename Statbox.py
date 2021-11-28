@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
+
 class StatBox:
     def __init__(self, index):
         self.index = index
@@ -28,7 +29,6 @@ class StatBox:
 
         self.SpeedInTurnLabel = QLabel("Speed in turn: (%)")
         self.SpeedInTurnText = QLineEdit(str(current_displayed[10]))
-
 
         # Add Widgets to the layout
         self.layout.addWidget(self.GeneralLabel, 0, 0)
