@@ -6,6 +6,8 @@ from PyQt5.QtCore import *
 import main
 import dict
 import Statbox
+import random
+import time
 
 
 class mainWindow(QMainWindow):
@@ -62,7 +64,7 @@ class TabWidget(QWidget):
         style = """QTabWidget::tab-bar{
                 alignment: left;
                 }"""
-  
+
         # Initialize tab screen
         self.tabs = QTabWidget()
         self.writetab = QWidget()
@@ -71,14 +73,14 @@ class TabWidget(QWidget):
         self.acceltab = QWidget()
         self.itemtab = QWidget()
         self.tabs.resize(300, 200)
-  
+
         # Add tabs
         self.tabs.addTab(self.writetab, "Write")
         self.tabs.addTab(self.comparetab, "Compare")
         self.tabs.addTab(self.itemtab, "Items")
         self.tabs.addTab(self.acceltab, "Graph")
         self.tabs.addTab(self.previewtab, "Preview")
-  
+
         # Create write tab
         self.writetab.layout = QGridLayout(self)
 
@@ -86,6 +88,16 @@ class TabWidget(QWidget):
         self.editScroll = QScrollArea(self)
         self.driverselect = QComboBox(self)
         self.kartselect = QComboBox(self)
+
+        random.seed(time.time())
+        easteregg = random.randint(0, 10)
+
+        if easteregg != 1:
+            self.cheatingOnline = QLabel("NOTE: Changing these values for online cheating is bannable and should not be attempted.")
+        elif easteregg == 1:
+            self.cheatingOnline = QLabel("NOTE: Changing these values for online cheating is based and should be attempted.")
+        self.cheatingOnline.setWordWrap(True)
+        self.cheatingOnline.setAlignment(Qt.AlignLeft)
 
         for entry in range(0, len(self.characters)):
             if self.character_icons[entry] != '':
@@ -120,6 +132,8 @@ class TabWidget(QWidget):
 
         font = QFont("Arial", 15, QFont.Bold)
 
+        self.cheatingOnline.setStyleSheet("color: rgb(255,0,0)")
+
         item = self.driverselect.model()
         item.item(0, 0).setFont(font)
         item.item(10, 0).setFont(font)
@@ -144,13 +158,14 @@ class TabWidget(QWidget):
         self.editScroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.editScroll.setWidgetResizable(True)
         self.editScroll.setWidget(self.Statbox.stats(self.current_displayed))
-        # self.editWidget.layout.addWidget(self.speedLabel, 0, 0)
+        #self.editWidget.layout.addWidget(self.speedLabel, 0, 0)
 
-        # self.writetab.layout.addWidget(self.lw, 3, 2)
+        #self.writetab.layout.addWidget(self.lw, 3, 2)
         self.writetab.layout.addWidget(self.paramselect, 1, 1)
         self.writetab.layout.addWidget(self.kartselect, 2, 1)
         self.writetab.layout.addWidget(self.driverselect, 2, 1)
-        self.writetab.layout.addWidget(self.editScroll, 3, 1)
+        self.writetab.layout.addWidget(self.cheatingOnline, 3, 1)
+        self.writetab.layout.addWidget(self.editScroll, 4, 1)
         self.writetab.setLayout(self.writetab.layout)
         self.driverselect.hide()
 
@@ -181,7 +196,7 @@ class TabWidget(QWidget):
         self.li.setText("This is the Item tab")
         self.itemtab.layout.addWidget(self.li)
         self.itemtab.setLayout(self.itemtab.layout)
-  
+
         self.setStyleSheet(style)
 
         # Add tabs to widget
@@ -199,11 +214,11 @@ class TabWidget(QWidget):
 
     def canBeSelected(self):
         self.unselectable = ["---Small---", "---Medium---", "---Large---"]
-        if not self.driverselect.currentText() in self.unselectable:
+        if not(self.driverselect.currentText() in self.unselectable):
             self.lastselecteddriver = self.driverselect.currentIndex()
         else:
             self.driverselect.setCurrentIndex(self.lastselecteddriver)
-        if not self.kartselect.currentText() in self.unselectable:
+        if not(self.kartselect.currentText() in self.unselectable):
             self.lastselectedkart = self.kartselect.currentIndex()
         else:
             self.kartselect.setCurrentIndex(self.lastselectedkart)
