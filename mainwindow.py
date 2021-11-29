@@ -90,12 +90,14 @@ class TabWidget(QWidget):
         self.kartselect = QComboBox(self)
 
         random.seed(time.time())
-        easteregg = random.randint(0, 10)
+        easteregg = random.randint(0, 10000)
 
-        if easteregg != 1:
+        if easteregg > 11:
             self.cheatingOnline = QLabel("NOTE: Changing these values for online cheating is bannable and should not be attempted.")
-        elif easteregg == 1:
+        elif easteregg > 1 < 11:
             self.cheatingOnline = QLabel("NOTE: Changing these values for online cheating is based and should be attempted.")
+        elif easteregg == 0:
+            self.cheatingOnline = QLabel("NOTE: Jaden is Based")
         self.cheatingOnline.setWordWrap(True)
         self.cheatingOnline.setAlignment(Qt.AlignLeft)
 
