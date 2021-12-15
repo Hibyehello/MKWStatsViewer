@@ -210,9 +210,13 @@ class TabWidget(QWidget):
         if index == 0:
             self.driverselect.hide()
             self.kartselect.show()
+            self.current_displayed = dict.vehicle[0]
+            self.editScroll.setWidget(self.Statbox.stats(self.current_displayed))
         else:
             self.kartselect.hide()
             self.driverselect.show()
+            self.current_displayed = dict.character[0]
+            self.editScroll.setWidget(self.Statbox.stats(self.current_displayed))
 
     def canBeSelected(self):
         self.unselectable = ["---Small---", "---Medium---", "---Large---"]
