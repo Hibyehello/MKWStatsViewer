@@ -83,7 +83,6 @@ class StatBox:
         # Add Widgets to the layout
         self.layout.addWidget(self.GeneralLabel, 1, 0)
         self.layout.addWidget(self.line, 2, 0)
-        self.layout.addWidget(self.line, 2, 1)
         self.layout.addWidget(self.numWheelLabel, 3, 0)
         self.layout.addWidget(self.numWheelbox, 3, 1)
         self.layout.addWidget(self.DriftTypeLabel, 4, 0)
