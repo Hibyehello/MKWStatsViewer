@@ -6,44 +6,52 @@ class StatBox:
     def __init__(self, index):
         self.index = index
 
-        self.line = QFrame()
-
-
-    def stats(self, current_displayed):
-
         self.tires = ["4 Wheels", "3 Wheels", "2 Wheels (Quacker)", "2 Wheels"]
         self.drift = ["Outside", "Outside (Bike)", "Inside"]
         self.weight = ["Small", "Medium", "Large"]
-
-        self.numWheelTT = "Number of tires:\n0 = 4 tires\n1 = 2 tires\n2 = 2 tires, closer to each other (used on Quacker)\n3 = 3 tires (used on Blue Falcon)."
-        self.DriftTypeTT = "Drift type:\n0 = outside drift used on karts\n1 = outside drift used on bikes\n2 = inside drift"
-        self.WeightClassTT = "Weight class (affects camera and trick rotation notably)\n0 = light\n1 = medium\n2 = heavy"
 
         # Define main Widget and Layout
         self.editWidget = QWidget()
         self.layout = QGridLayout()
         self.pLayout = QGridLayout()
 
-        # Font for some Category Labels
+        # Font
         self.Font = QFont()
-        self.Font.setPointSize(24)
-        self.Font.setBold(True)
 
         # Add Widgets here
         self.GeneralLabel = QLabel("General")
-        self.GeneralLabel.setFont(self.Font)
-        self.GeneralLabel.setMaximumHeight(20)
-
         self.numWheelLabel = QLabel("# of Wheels:")
         self.DriftTypeLabel = QLabel("Drift Type:")
         self.WeightClassLabel = QLabel("Weight Class:")
-
         self.numWheelbox = QComboBox()
-        self.numWheelbox.addItems(self.tires)
         self.DriftTypebox = QComboBox()
-        self.DriftTypebox.addItems(self.drift)
         self.WeightClassbox = QComboBox()
+        self.SpeedLabel = QLabel("Speed:")
+        self.SpeedText = QLineEdit()
+        self.WeightLabel = QLabel("Weight:")
+        self.WeightText = QLineEdit()
+        self.SpeedInTurnLabel = QLabel("Speed in turn: (%)")
+        self.SpeedInTurnText = QLineEdit()
+
+        self.line = QFrame()
+
+    def stats(self, current_displayed):
+
+        # Font for some Category Labels
+        self.Font.setPointSize(24)
+        self.Font.setBold(True)
+
+        # Edit Widgets here
+        self.GeneralLabel.setFont(self.Font)
+        self.GeneralLabel.setMaximumHeight(20)
+
+        self.numWheelbox.addItems(self.tires)
+        self.DriftTypebox.addItems(self.drift)
         self.WeightClassbox.addItems(self.weight)
+
+        self.SpeedText.setText(str(current_displayed[9]))
+        self.WeightText.setText(str(current_displayed[7]))
+        self.SpeedInTurnText.setText(str(current_displayed[10]))
 
         if current_displayed[0] == 0:
             self.numWheelbox.setCurrentIndex(0)
@@ -72,33 +80,7 @@ class StatBox:
         self.line.setFrameShape(QFrame.HLine)
         self.line.setFrameShadow(QFrame.Sunken)
 
-        '''self.numWheelText = QLineEdit(str(current_displayed[0]))
-        self.numWheelLabel.setToolTip(self.numWheelTT)
-        self.numWheelText.setToolTip(self.numWheelTT)
-
-        self.DriftTypeLabel = QLabel("Drift Type:")
-        self.DriftTypeText = QLineEdit(str(current_displayed[1]))
-        self.DriftTypeLabel.setToolTip(self.DriftTypeTT)
-        self.DriftTypeText.setToolTip(self.DriftTypeTT)
-
-        self.WeightClassLabel = QLabel("Weight Class:")
-        self.WeightClassText = QLineEdit(str(current_displayed[2]))
-        self.WeightClassLabel.setToolTip(self.WeightClassTT)
-        self.WeightClassText.setToolTip(self.WeightClassTT)'''
-
-
-        self.SpeedLabel = QLabel("Speed:")
-        self.SpeedText = QLineEdit(str(current_displayed[9]))
-
-        self.WeightLabel = QLabel("Weight:")
-        self.WeightText = QLineEdit(str(current_displayed[7]))
-
-        self.SpeedInTurnLabel = QLabel("Speed in turn: (%)")
-        self.SpeedInTurnText = QLineEdit(str(current_displayed[10]))
-
-
         # Add Widgets to the layout
-
         self.layout.addWidget(self.GeneralLabel, 1, 0)
         self.layout.addWidget(self.line, 2, 0)
         self.layout.addWidget(self.line, 2, 1)
@@ -114,7 +96,6 @@ class StatBox:
         self.layout.addWidget(self.WeightText, 7, 1)
         self.layout.addWidget(self.SpeedInTurnLabel, 8, 0)
         self.layout.addWidget(self.SpeedInTurnText, 8, 1)
-
 
         # Set editWidget's layout to self.layout
         self.pLayout.setAlignment(Qt.AlignTop)

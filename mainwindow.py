@@ -93,9 +93,11 @@ class TabWidget(QWidget):
         easteregg = random.randint(0, 10000)
 
         if easteregg > 11:
-            self.cheatingOnline = QLabel("NOTE: Changing these values for online cheating is bannable and should not be attempted.")
+            self.cheatingOnline = QLabel("NOTE: Changing these values for online cheating is bannable and should not "
+                                         "be attempted.")
         elif easteregg > 1 < 11:
-            self.cheatingOnline = QLabel("NOTE: Changing these values for online cheating is based and should be attempted.")
+            self.cheatingOnline = QLabel("NOTE: Changing these values for online cheating is based and should "
+                                         "be attempted.")
         elif easteregg == 0:
             self.cheatingOnline = QLabel("NOTE: Jaden is Based")
         self.cheatingOnline.setWordWrap(True)
@@ -145,12 +147,6 @@ class TabWidget(QWidget):
         item.item(13, 0).setFont(font)
         item.item(26, 0).setFont(font)
 
-        # Create textbox
-        """self.speedLabel = QLabel()
-        self.speedLabel.setText('Speed')
-        self.speedTextbox = QLineEdit(self)
-        self.speedTextbox.setText(str(self.current_displayed[9]))"""
-
         self.paramselect = QComboBox(self)
         self.paramselect.addItems(["Kart", "Driver"])
         self.paramselect.currentTextChanged.connect(lambda: self.setEditWindow())
@@ -160,9 +156,7 @@ class TabWidget(QWidget):
         self.editScroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.editScroll.setWidgetResizable(True)
         self.editScroll.setWidget(self.Statbox.stats(self.current_displayed))
-        #self.editWidget.layout.addWidget(self.speedLabel, 0, 0)
 
-        #self.writetab.layout.addWidget(self.lw, 3, 2)
         self.writetab.layout.addWidget(self.paramselect, 1, 1)
         self.writetab.layout.addWidget(self.kartselect, 2, 1)
         self.writetab.layout.addWidget(self.driverselect, 2, 1)
