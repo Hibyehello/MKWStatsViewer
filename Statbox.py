@@ -19,22 +19,26 @@ class StatBox:
         # Font
         self.Font = QFont()
 
-        # TODO: Create a red asterisk with full transparency at the end of these labels
+        self.edited = "<font color='red'>*</font>"
+
         # Add widgets here
+        self.labels = [QLabel(), QLabel(), QLabel(), QLabel(), QLabel(), QLabel()]
+        self.labelsText = ["# of Wheels:", "Drift Type:", "Weight Class:", "Speed:", "Weight:", "Speed in turn: (%)"]
         self.GeneralLabel = QLabel("General")
-        self.numWheelLabel = QLabel("# of Wheels:")
-        self.DriftTypeLabel = QLabel("Drift Type:")
-        self.WeightClassLabel = QLabel("Weight Class:")
+
+        self.labels[0].setText(self.labelsText[0])
+        self.labels[1].setText(self.labelsText[1])
+        self.labels[2].setText(self.labelsText[2])
+        self.labels[3].setText(self.labelsText[3])
+        self.labels[4].setText(self.labelsText[4])
+        self.labels[5].setText(self.labelsText[5])
+
         self.numWheelbox = QComboBox()
         self.DriftTypebox = QComboBox()
         self.WeightClassbox = QComboBox()
-        self.SpeedLabel = QLabel("Speed:")
         self.SpeedText = QLineEdit()
-        self.WeightLabel = QLabel("Weight:")
         self.WeightText = QLineEdit()
-        self.SpeedInTurnLabel = QLabel("Speed in turn: (%)")
         self.SpeedInTurnText = QLineEdit()
-
         self.line = QFrame()
 
         # Add stats combobox entries
@@ -72,21 +76,27 @@ class StatBox:
         # Create a horizontal divider line
         self.line.setFrameShape(QFrame.HLine)
         self.line.setFrameShadow(QFrame.Sunken)
+        self.numWheelbox.currentIndexChanged.connect(lambda: self.onUpdate(0))
+        self.DriftTypebox.currentIndexChanged.connect(lambda: self.onUpdate(1))
+        self.WeightClassbox.currentIndexChanged.connect(lambda: self.onUpdate(2))
+        self.SpeedText.textChanged.connect(lambda: self.onUpdate(3))
+        self.WeightText.textChanged.connect(lambda: self.onUpdate(4))
+        self.SpeedInTurnText.textChanged.connect(lambda: self.onUpdate(5))
 
         # Add Widgets to the layout
         self.layout.addWidget(self.GeneralLabel, 1, 0)
         self.layout.addWidget(self.line, 2, 0)
-        self.layout.addWidget(self.numWheelLabel, 3, 0)
+        self.layout.addWidget(self.labels[0], 3, 0)
         self.layout.addWidget(self.numWheelbox, 3, 1)
-        self.layout.addWidget(self.DriftTypeLabel, 4, 0)
+        self.layout.addWidget(self.labels[1], 4, 0)
         self.layout.addWidget(self.DriftTypebox, 4, 1)
-        self.layout.addWidget(self.WeightClassLabel, 5, 0)
+        self.layout.addWidget(self.labels[2], 5, 0)
         self.layout.addWidget(self.WeightClassbox, 5, 1)
-        self.layout.addWidget(self.SpeedLabel, 6, 0)
+        self.layout.addWidget(self.labels[3], 6, 0)
         self.layout.addWidget(self.SpeedText, 6, 1)
-        self.layout.addWidget(self.WeightLabel, 7, 0)
+        self.layout.addWidget(self.labels[4], 7, 0)
         self.layout.addWidget(self.WeightText, 7, 1)
-        self.layout.addWidget(self.SpeedInTurnLabel, 8, 0)
+        self.layout.addWidget(self.labels[5], 8, 0)
         self.layout.addWidget(self.SpeedInTurnText, 8, 1)
 
         # Set editWidget's layout to self.layout
@@ -95,3 +105,6 @@ class StatBox:
         self.editWidget.setLayout(self.pLayout)
 
         return self.editWidget
+
+    def onUpdate(self, index):
+        self.labels[index].setText(self.labelsText[index] + self.edited)
