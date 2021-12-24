@@ -155,7 +155,7 @@ class TabWidget(QWidget):
         self.editScroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.editScroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.editScroll.setWidgetResizable(True)
-        self.editScroll.setWidget(self.Statbox.stats(self.current_displayed))
+        self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed))
 
         self.writetab.layout.addWidget(self.paramselect, 1, 1)
         self.writetab.layout.addWidget(self.kartselect, 2, 1)
@@ -205,12 +205,12 @@ class TabWidget(QWidget):
             self.driverselect.hide()
             self.kartselect.show()
             self.current_displayed = dict.vehicle[0]
-            self.editScroll.setWidget(self.Statbox.stats(self.current_displayed))
+            self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed))
         else:
             self.kartselect.hide()
             self.driverselect.show()
             self.current_displayed = dict.character[0]
-            self.editScroll.setWidget(self.Statbox.stats(self.current_displayed))
+            self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed))
 
     def canBeSelected(self):
         self.unselectable = ["---Small---", "---Medium---", "---Large---"]
@@ -235,7 +235,7 @@ class TabWidget(QWidget):
         self.current_displayed = dict.vehicle[i]
 
         print(self.current_displayed)
-        self.editScroll.setWidget(self.Statbox.stats(self.current_displayed))
+        self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed))
 
     def onDriverChange(self, i):
         i -= 1
@@ -245,4 +245,4 @@ class TabWidget(QWidget):
                 i -= 1
 
         self.current_displayed = dict.character[i]
-        self.editScroll.setWidget(self.Statbox.stats(self.current_displayed))
+        self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed))

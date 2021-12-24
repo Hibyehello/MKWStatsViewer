@@ -1,11 +1,11 @@
-import statisticsmkw
+import core
 from os.path import exists
 
-stats = statisticsmkw.Statistics()
+stats = core.ParseParam()
 kart_param = "./param/kartParam.bin"
 driver_param = "./param/driverParam.bin"
-vehicle_ids = stats.parse_param(kart_param)
-character_ids = stats.parse_param(driver_param)
+vehicle_ids = stats.parse_driver_and_kart(kart_param)
+character_ids = stats.parse_driver_and_kart(driver_param)
 
 vehicle = [vehicle_ids[0x0], vehicle_ids[0x3], vehicle_ids[0x6], vehicle_ids[0x9], vehicle_ids[0xC], vehicle_ids[0xF],
            vehicle_ids[0x12], vehicle_ids[0x15], vehicle_ids[0x18], vehicle_ids[0x1B], vehicle_ids[0x1E],

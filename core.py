@@ -2,12 +2,13 @@ import json
 import struct
 
 
-class Statistics:
+class ParseParam:
     def __init__(self):
         pass
 
-    # Send with filepath to param.bin, returns nothing
-    def parse_param(self, param):
+    # Send with filepath to kartParam.bin or driverParam.bin
+    # Returns a nested list in order of vehicle/character IDs
+    def parse_driver_and_kart(self, param):
         vehicles = []
 
         with open(param, 'rb') as f:

@@ -2,11 +2,12 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
+
 class StatBox:
     def __init__(self, index):
         self.index = index
 
-        self.tires = ["4 Wheels", "3 Wheels", "2 Wheels (Quacker)", "2 Wheels"]
+        self.tires = ["4 Wheels", "3 Wheels", "2 Wheels (Quacker)", "2 Wheels"]  # 4 Wheels = "Kart", 2 Wheels = "Bike"
         self.drift = ["Outside", "Outside (Bike)", "Inside"]
         self.weight = ["Small", "Medium", "Large"]
 
@@ -18,7 +19,8 @@ class StatBox:
         # Font
         self.Font = QFont()
 
-        # Add Widgets here
+        # TODO: Create a red asterisk with full transparency at the end of these labels
+        # Add widgets here
         self.GeneralLabel = QLabel("General")
         self.numWheelLabel = QLabel("# of Wheels:")
         self.DriftTypeLabel = QLabel("Drift Type:")
@@ -35,7 +37,13 @@ class StatBox:
 
         self.line = QFrame()
 
-    def stats(self, current_displayed):
+        # Add stats combobox entries
+        self.numWheelbox.addItems(self.tires)
+        self.DriftTypebox.addItems(self.drift)
+        self.WeightClassbox.addItems(self.weight)
+
+    # Updates textboxes / dropdowns with entry's default values
+    def update_entry_stats(self, current_displayed):
 
         # Font for some Category Labels
         self.Font.setPointSize(24)
@@ -43,16 +51,12 @@ class StatBox:
 
         # Edit Widgets here
         self.GeneralLabel.setFont(self.Font)
-        self.GeneralLabel.setMaximumHeight(20)
-
-        self.numWheelbox.addItems(self.tires)
-        self.DriftTypebox.addItems(self.drift)
-        self.WeightClassbox.addItems(self.weight)
 
         self.SpeedText.setText(str(current_displayed[9]))
         self.WeightText.setText(str(current_displayed[7]))
         self.SpeedInTurnText.setText(str(current_displayed[10]))
 
+        # We can probably do 1:1 correspondence here as well
         if current_displayed[0] == 0:
             self.numWheelbox.setCurrentIndex(0)
         elif current_displayed[0] == 1:
@@ -62,19 +66,8 @@ class StatBox:
         else:
             self.numWheelbox.setCurrentIndex(1)
 
-        if current_displayed[1] == 0:
-            self.DriftTypebox.setCurrentIndex(0)
-        elif current_displayed[1] == 1:
-            self.DriftTypebox.setCurrentIndex(1)
-        else:
-            self.DriftTypebox.setCurrentIndex(2)
-
-        if current_displayed[2] == 0:
-            self.WeightClassbox.setCurrentIndex(0)
-        elif current_displayed[2] == 1:
-            self.WeightClassbox.setCurrentIndex(1)
-        else:
-            self.WeightClassbox.setCurrentIndex(2)
+        self.DriftTypebox.setCurrentIndex(current_displayed[1])
+        self.WeightClassbox.setCurrentIndex(current_displayed[2])
 
         # Create a horizontal divider line
         self.line.setFrameShape(QFrame.HLine)
