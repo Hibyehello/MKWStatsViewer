@@ -22,16 +22,15 @@ class StatBox:
         self.edited = "<font color='red'>*</font>"
 
         # Add widgets here
-        self.labels = [QLabel(), QLabel(), QLabel(), QLabel(), QLabel(), QLabel()]
+        self.labels = []
         self.labelsText = ["# of Wheels:", "Drift Type:", "Weight Class:", "Speed:", "Weight:", "Speed in turn: (%)"]
+        for _ in self.labelsText:
+            self.labels.append(QLabel())
+
         self.GeneralLabel = QLabel("General")
 
-        self.labels[0].setText(self.labelsText[0])
-        self.labels[1].setText(self.labelsText[1])
-        self.labels[2].setText(self.labelsText[2])
-        self.labels[3].setText(self.labelsText[3])
-        self.labels[4].setText(self.labelsText[4])
-        self.labels[5].setText(self.labelsText[5])
+        for i in range(6):
+            self.labels[i].setText(self.labelsText[i])
 
         self.numWheelbox = QComboBox()
         self.DriftTypebox = QComboBox()

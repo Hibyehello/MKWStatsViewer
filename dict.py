@@ -1,5 +1,4 @@
 import core
-from os.path import exists
 
 stats = core.ParseParam()
 kart_param = "./param/kartParam.bin"
