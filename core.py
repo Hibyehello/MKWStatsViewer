@@ -147,3 +147,74 @@ class ParseParam:
             compareFloatHex = struct.pack('>f', floatToCompare)
             if compareFloatHex == hexString:
                 return floatToCompare
+
+
+class Save:
+    def __init__(self):
+        pass
+
+    # Receives parsed parameter list, along with some metadata
+    # Returns nothing, results in saved JSON file in project folder
+    # TODO: add a save button or shortcut that calls this function
+    # TODO: verify this even works, this commit is untested
+    def save_to_json(self, params, type, index, name):
+        json_content = dict()
+        filepath = "./project/dev/"
+
+        # TODO: when implementing saves, swap out 'dev' with an f-string with argument 'project_name'
+        # If you're crashing, you should probably make directory ./project/dev
+        if not os.path.isdir('./project/dev/vehicles'):
+            os.mkdir('./project/dev/vehicles')
+
+        if not os.path.isdir('./project/dev/characters'):
+            os.mkdir('./project/dev/characters')
+
+        json_content['params'] = self.create_savedata(params)
+        json_content['metadata'] = self.create_metadata(type, index)
+
+        # 'name' is mainwindow.driver/kartselect.currentText()
+        # If spaces cause an issue later on, we can always define names in self.determine_id()
+        if type == 'kart':
+            filepath += f"vehicles/{name}.json"
+        elif type == 'driver':
+            filepath += f"characters/{name}.json"
+
+        with open(filepath, 'w') as r:
+            json.dump(json_content, r)
+
+    # Used in save_to_json() to create a stats dictionary
+    def create_savedata(self, params):
+        savedata = dict()
+        savedata['tires'] = params[0]
+        savedata['drift_type'] = params[1]
+        savedata['weight_class'] = params[2]
+        savedata['weight'] = str(params[7])
+        savedata['speed'] = str(params[9])
+        savedata['turning_speed'] = str(params[10])
+
+        return savedata
+
+    # Used in save_to_json() to create a metadata dictionary
+    def create_metadata(self, type, index):
+        # 'type' should be a string and values should be 'kart' or 'driver'
+        # 'index' is mainwindow.driver/kartselect.currentIndex()
+        metadata = dict()
+        metadata['type'] = type
+        metadata['id'] = self.determine_id(type, index)
+
+        return metadata
+
+    # I can't think of a better way to do this right now
+    def determine_id(self, type, index):
+        vehicle_order = ["0x0", "0x3", "0x6", "0x9", "0xC", "0xF", "0x12", "0x15", "0x18", "0x1B", "0x1E", "0x21",
+                         "0x1", "0x4", "0x7", "0xA", "0xD", "0x10", "0x13", "0x16", "0x19", "0x1C", "0x1F", "0x22",
+                         "0x2", "0x5", "0x8", "0xB", "0xE", "0x11", "0x14", "0x17", "0x1A", "0x1D", "0x20", "0x23"]
+
+        character_order = ["0x6", "0xC", "0x1", "0x4", "0x8", "0xD", "0xE", "0x5", "0x17", "0x0", "0x7", "0x10", "0xF",
+                           "0xA", "0x11", "0x12", "0x14", "0x18", "0xB", "0x2", "0x9", "0x3", "0x13", "0x17", "0x16",
+                           "0x15", "0x19"]
+
+        if type == 'kart':
+            return vehicle_order[index]
+        elif type == 'driver':
+            return character_order[index]
