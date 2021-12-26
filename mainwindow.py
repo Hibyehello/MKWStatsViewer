@@ -3,6 +3,7 @@ from os.path import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+import core
 import main
 import dict
 import Statbox
@@ -59,7 +60,9 @@ class TabWidget(QWidget):
 
         self.current_displayed = []
 
-        self.Statbox = Statbox.StatBox(1)
+        self.save = core.Save()
+
+        self.Statbox = Statbox.StatBox(self.current_displayed)
 
         style = """QTabWidget::tab-bar{
                 alignment: left;
@@ -199,18 +202,25 @@ class TabWidget(QWidget):
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
 
+        self.saveSC = QShortcut(QKeySequence.Save, self)
+
+        if self.paramselect.currentIndex() == 0:
+            self.saveSC.activated.connect(lambda: self.KartSave())
+        else:
+            self.saveSC.activated.connect(lambda: self.DriverSave())
+
     def setEditWindow(self):
         index = self.paramselect.currentIndex()
         if index == 0:
             self.driverselect.hide()
             self.kartselect.show()
             self.current_displayed = dict.vehicle[0]
-            self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed))
+            self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed, True))
         else:
             self.kartselect.hide()
             self.driverselect.show()
             self.current_displayed = dict.character[0]
-            self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed))
+            self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed, True))
 
     def canBeSelected(self):
         self.unselectable = ["---Small---", "---Medium---", "---Large---"]
@@ -235,7 +245,7 @@ class TabWidget(QWidget):
         self.current_displayed = dict.vehicle[i]
 
         print(self.current_displayed)
-        self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed))
+        self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed, True))
 
     def onDriverChange(self, i):
         i -= 1
@@ -245,4 +255,18 @@ class TabWidget(QWidget):
                 i -= 1
 
         self.current_displayed = dict.character[i]
-        self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed))
+        self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed, True))
+
+    def KartSave(self):
+        self.save.save_to_json(self.current_displayed,
+                               'kart',
+                               self.kartselect.currentIndex(),
+                               self.kartselect.currentText())
+        self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed, True))
+
+    def DriverSave(self):
+        self.save.save_to_json(self.current_displayed,
+                                'driver',
+                                self.driverselect.currentIndex(),
+                                self.driverselect.currentText())
+        self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed, True))

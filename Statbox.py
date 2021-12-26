@@ -1,11 +1,14 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+import core
 
 
 class StatBox:
-    def __init__(self, index):
-        self.index = index
+    def __init__(self, current_displayed):
+        self.current_displayed = current_displayed
+
+        self.save = core.Save
 
         self.tires = ["4 Wheels", "3 Wheels", "2 Wheels (Quacker)", "2 Wheels"]  # 4 Wheels = "Kart", 2 Wheels = "Bike"
         self.drift = ["Outside", "Outside (Bike)", "Inside"]
@@ -46,7 +49,7 @@ class StatBox:
         self.WeightClassbox.addItems(self.weight)
 
     # Updates textboxes / dropdowns with entry's default values
-    def update_entry_stats(self, current_displayed):
+    def update_entry_stats(self, current_displayed, clear=False):
 
         # Font for some Category Labels
         self.Font.setPointSize(24)
@@ -103,7 +106,17 @@ class StatBox:
         self.pLayout.addLayout(self.layout, 0, 0)
         self.editWidget.setLayout(self.pLayout)
 
+        if clear:
+            self.clear()
+
         return self.editWidget
 
     def onUpdate(self, index):
-        self.labels[index].setText(self.labelsText[index] + self.edited)
+            self.labels[index].setText(self.labelsText[index] + self.edited)
+
+    def clear(self):
+        for x in range(len(self.labels)):
+            self.labels[x].setText(self.labelsText[x])
+
+    def test(self):
+        print("works")
