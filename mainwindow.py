@@ -262,11 +262,11 @@ class TabWidget(QWidget):
                                'kart',
                                self.kartselect.currentIndex(),
                                self.kartselect.currentText())
-        self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed, True))
+        self.Statbox.clear()
 
     def DriverSave(self):
         self.save.save_to_json(self.current_displayed,
                                 'driver',
                                 self.driverselect.currentIndex(),
                                 self.driverselect.currentText())
-        self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed, True))
+        self.Statbox.clear()
