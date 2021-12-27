@@ -4,22 +4,45 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import core
-import main
 import dict
 import Statbox
+import SettingsWindow
 import random
 import time
+
 
 
 class mainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self._createMenuBar()
         self.setWindowFlags(Qt.Window)
         self.setWindowTitle('StatsViewer')
         self.setMinimumSize(350, 150)
         self.setCentralWidget(TabWidget(self))
 
         # self.show()
+
+    def openSettings(self):
+        self.settings = SettingsWindow.SettingsWin()
+
+    def _createMenuBar(self):
+        self.menuBar = QMenuBar(self)
+        self.editMenu = QMenu('&File', self)
+        self.menuBar.addMenu(self.editMenu)
+
+        self.a_settings = QAction("​&Settings...", self)
+        self.a_settings.triggered.connect(lambda: self.openSettings())
+        self.a_newProject = QAction("&New Project", self)
+        self.a_openProject = QAction("&Open Project...", self)
+
+        self.editMenu.addAction(self.a_newProject)
+        self.editMenu.addAction(self.a_openProject)
+        self.editMenu.addSeparator()
+        self.editMenu.addAction(self.a_settings)
+
+        self.setMenuBar(self.menuBar)
+
 
 
 class TabWidget(QWidget):

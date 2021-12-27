@@ -6,14 +6,13 @@ from PyQt5.QtCore import *
 from os.path import *
 import main
 import errorWindow
-import mainwindow
 import globalvars
 import shutil
 import hashlib
 
 
 class selectUI(QWidget):
-    def createwindow(self, windowWidth, windowHeight):
+    def __init__(self, windowWidth, windowHeight):
         super().__init__()
         if not os.path.isdir('./param'):
             os.mkdir('./param')
@@ -40,6 +39,8 @@ class selectUI(QWidget):
         self.cancelbtn = QPushButton("done", self)
         self.cancelbtn.move(windowWidth-100, windowHeight-30)
         self.cancelbtn.clicked.connect(lambda: self.windowclose())
+
+        self.show()
 
     def windowclose(self):
         self.close()
@@ -89,18 +90,15 @@ class startUI(QWidget):
         if exists("param/kartParam.bin") & exists("param/driverParam.bin"):
             karthash = globalvars.kart()
             driverhash = globalvars.driver()
-            print(karthash, "\n", driverhash, "\n")
+            print(karthash, "\n" + driverhash, "\n")
             if (karthash == globalvars.hashkart) & (driverhash == globalvars.hashdriver):
+                import mainwindow
                 self.winmain = mainwindow.mainWindow()
                 self.winmain.show()
                 self.close()
             else:
                 errorWindow.error(0)
-                self.selectui = selectUI()
-                self.selectui.createwindow(300, 300)
-                self.selectui.show()
+                self.selectui = selectUI(300, 300)
 
         else:
-            self.selectui = selectUI()
-            self.selectui.createwindow(300, 300)
-            self.selectui.show()
+            self.selectui = selectUI(300, 300)
