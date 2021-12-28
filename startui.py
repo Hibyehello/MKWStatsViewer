@@ -66,24 +66,41 @@ class startUI(QWidget):
 
         super().__init__()
         self.setWindowTitle("StatsViewer")
+        self.setWindowFlags(Qt.CustomizeWindowHint | Qt.WindowCloseButtonHint)
 
         height = 250
         width = 450
 
         self.setFixedHeight(height)
         self.setFixedWidth(width)
+        self.layout = QGridLayout(self)
+
+        try:
+            oImage = QImage("Background.png")
+            sImage = oImage.scaled(QSize(width, height))                   # resize Image to widgets size
+            palette = QPalette()
+            palette.setBrush(QPalette.Window, QBrush(sImage))
+            self.setPalette(palette)
+        except ValueError:
+            pass
 
         self.namelabel = QLabel("StatsViewer", self)
-        self.namelabel.move(115, 50)
         self.namelabel.setFont(QFont("Arial", 40))
 
-        self.quitbtn = QPushButton("Quit", self)
-        self.quitbtn.move(375, 215)
-        self.quitbtn.clicked.connect(lambda: QApplication.quit())
+        '''self.quitbtn = QPushButton("Quit", self)
+        self.quitbtn.clicked.connect(lambda: QApplication.quit())'''
 
         self.startbtn = QPushButton("Start", self)
-        self.startbtn.move(185, 100)
         self.startbtn.clicked.connect(self.firsttime)
+
+        self.spacer = QSpacerItem(100, 25)
+
+        self.layout.addItem(self.spacer, 0, 1)
+        self.layout.addItem(self.spacer, 1, 0)
+        self.layout.addItem(QSpacerItem(100, 75), 2, 3)
+        self.layout.addItem(QSpacerItem(100, 75), 3, 1)
+        self.layout.addWidget(self.namelabel, 1, 1)
+        self.layout.addWidget(self.startbtn, 2, 1)
 
     def firsttime(self):
         
@@ -92,9 +109,13 @@ class startUI(QWidget):
             driverhash = globalvars.driver()
             print(karthash, "\n" + driverhash, "\n")
             if (karthash == globalvars.hashkart) & (driverhash == globalvars.hashdriver):
-                import mainwindow
+                '''import mainwindow
                 self.winmain = mainwindow.mainWindow()
                 self.winmain.show()
+                self.close()'''
+                import ProjectWindow
+                self.projWin = ProjectWindow.ProjectWindow()
+                self.projWin.show()
                 self.close()
             else:
                 errorWindow.error(0)

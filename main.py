@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import startui
+import codecs
 
 application = QApplication(sys.argv)
 
