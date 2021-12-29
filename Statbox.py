@@ -51,9 +51,6 @@ class StatBox:
         self.numWheelbox = QComboBox()
         self.DriftTypebox = QComboBox()
         self.WeightClassbox = QComboBox()
-        #self.SpeedText = QLineEdit()
-        #self.WeightText = QLineEdit()
-        #self.SpeedInTurnText = QLineEdit()
         self.line = QFrame()
 
         # Add stats combobox entries

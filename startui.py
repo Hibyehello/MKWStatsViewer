@@ -1,14 +1,11 @@
-import sys
 import os
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from os.path import *
-import main
 import errorWindow
 import globalvars
 import shutil
-import hashlib
 
 
 class selectUI(QWidget):
@@ -62,9 +59,9 @@ class selectUI(QWidget):
 
 class startUI(QWidget):
 
-    def __init__(self):
+    def __init__(self, parent=None):
 
-        super().__init__()
+        super().__init__(parent)
         self.setWindowTitle("StatsViewer")
         self.setWindowFlags(Qt.CustomizeWindowHint | Qt.WindowCloseButtonHint)
 
@@ -87,9 +84,6 @@ class startUI(QWidget):
         self.namelabel = QLabel("StatsViewer", self)
         self.namelabel.setFont(QFont("Arial", 40))
 
-        '''self.quitbtn = QPushButton("Quit", self)
-        self.quitbtn.clicked.connect(lambda: QApplication.quit())'''
-
         self.startbtn = QPushButton("Start", self)
         self.startbtn.clicked.connect(self.firsttime)
 
@@ -102,6 +96,8 @@ class startUI(QWidget):
         self.layout.addWidget(self.namelabel, 1, 1)
         self.layout.addWidget(self.startbtn, 2, 1)
 
+        self.show()
+
     def firsttime(self):
         
         if exists("param/kartParam.bin") & exists("param/driverParam.bin"):
@@ -109,14 +105,10 @@ class startUI(QWidget):
             driverhash = globalvars.driver()
             print(karthash, "\n" + driverhash, "\n")
             if (karthash == globalvars.hashkart) & (driverhash == globalvars.hashdriver):
-                '''import mainwindow
-                self.winmain = mainwindow.mainWindow()
-                self.winmain.show()
-                self.close()'''
                 import ProjectWindow
                 self.projWin = ProjectWindow.ProjectWindow()
-                self.projWin.show()
-                self.close()
+                self.destroy()
+
             else:
                 errorWindow.error(0)
                 self.selectui = selectUI(300, 300)

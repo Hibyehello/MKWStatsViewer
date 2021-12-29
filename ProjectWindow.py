@@ -1,14 +1,14 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-import mainwindow
+from main import Quit
 
 projectName = ""
 
 
 class ProjectWindow(QWidget):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None):
+        super(ProjectWindow, self).__init__(parent)
 
         self.setWindowFlags(Qt.CustomizeWindowHint | Qt.WindowCloseButtonHint)
 
@@ -38,14 +38,20 @@ class ProjectWindow(QWidget):
         self.cancel.clicked.connect(lambda: self.closefunc())
         self.create.clicked.connect(lambda: self.oncreate())
 
+        self.show()
+
+    def closeEvent(self, a0: QCloseEvent) -> None:
+        Quit()
+
     def oncreate(self):
         global projectName
         projectName = self.nameInput.text()
         print(projectName)
 
     def tempfunc(self):
-        self.mainwin = mainwindow.mainWindow()
-        self.mainwin.show()
-        self.close()
+        import mainwindow
+        self.mainwin = mainwindow.mainWindow(self)
+        self.destroy()
+
 
 

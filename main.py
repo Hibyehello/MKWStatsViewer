@@ -1,22 +1,21 @@
 import sys
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
 import startui
-import codecs
-
-application = QApplication(sys.argv)
 
 
-def quitevent():
-    sys.exit(application.exec_())
+app = QApplication(sys.argv)
+self = QWidget()
 
-def main():
-    application.setApplicationName("StatsViewer")
+
+def Quit():
+    print("Hi")
+    app.exit(0)
+
+def Main():
     start = startui.startUI()
-    start.show()
-    application.aboutToQuit.connect(quitevent())
-    
+    app.aboutToQuit.connect(lambda: Quit())
+    app.exec_()
+
 
 if __name__ == '__main__':
-    main()
+    Main()

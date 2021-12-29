@@ -6,7 +6,7 @@ class SettingsWin(QWidget):
 
     def __init__(self):
 
-        super().__init__()
+        super(SettingsWin, self).__init__()
         self.setWindowTitle("Settings")
         self.setWindowFlags(Qt.WindowStaysOnTopHint |
                             Qt.CustomizeWindowHint |
