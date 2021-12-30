@@ -1,20 +1,20 @@
 import sys
 from PyQt5.QtWidgets import *
 import startui
+from ProjectWindow import close
 
 
 app = QApplication(sys.argv)
 self = QWidget()
 
-
 def Quit():
-    print("Hi")
+    print("Good-Bye")
     app.exit(0)
 
 def Main():
     start = startui.startUI()
     app.aboutToQuit.connect(lambda: Quit())
-    app.exec_()
+    sys.exit(app.exec_())
 
 
 if __name__ == '__main__':

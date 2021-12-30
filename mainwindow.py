@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from main import Quit
 import WriteTab
 import CompareTab
 import PreviewTab
@@ -41,7 +40,9 @@ class mainWindow(QMainWindow):
 
         self.setMenuBar(self.menuBar)
 
+
     def closeEvent(self, a0: QCloseEvent) -> None:
+        from main import Quit
         Quit()
 
 

@@ -1,10 +1,11 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from main import Quit
+
+import startui
 
 projectName = ""
-
+close = 0
 
 class ProjectWindow(QWidget):
     def __init__(self, parent=None):
@@ -40,13 +41,14 @@ class ProjectWindow(QWidget):
 
         self.show()
 
-    def closeEvent(self, a0: QCloseEvent) -> None:
-        Quit()
 
     def oncreate(self):
         global projectName
         projectName = self.nameInput.text()
         print(projectName)
+
+    def closefunc(self):
+        self.close()
 
     def tempfunc(self):
         import mainwindow

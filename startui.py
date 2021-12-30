@@ -3,10 +3,14 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from os.path import *
+import faulthandler
+
+import ProjectWindow
 import errorWindow
 import globalvars
 import shutil
 
+faulthandler.enable()
 
 class selectUI(QWidget):
     def __init__(self, windowWidth, windowHeight):
@@ -60,25 +64,24 @@ class selectUI(QWidget):
 class startUI(QWidget):
 
     def __init__(self, parent=None):
-
         super().__init__(parent)
         self.setWindowTitle("StatsViewer")
         self.setWindowFlags(Qt.CustomizeWindowHint | Qt.WindowCloseButtonHint)
 
-        height = 250
-        width = 450
+        self.height = 250
+        self.width = 450
 
-        self.setFixedHeight(height)
-        self.setFixedWidth(width)
+        self.setFixedHeight(self.height)
+        self.setFixedWidth(self.width)
         self.layout = QGridLayout(self)
 
         try:
-            oImage = QImage("Background.png")
-            sImage = oImage.scaled(QSize(width, height))                   # resize Image to widgets size
-            palette = QPalette()
-            palette.setBrush(QPalette.Window, QBrush(sImage))
-            self.setPalette(palette)
-        except ValueError:
+            self.oImage = QImage("Background.png")
+            self.sImage = self.oImage.scaled(QSize(self.width, self.height))                   # resize Image to widgets size
+            self.palette = QPalette()
+            self.palette.setBrush(QPalette.Window, QBrush(self.sImage))
+            self.setPalette(self.palette)
+        except:
             pass
 
         self.namelabel = QLabel("StatsViewer", self)
@@ -87,19 +90,19 @@ class startUI(QWidget):
         self.startbtn = QPushButton("Start", self)
         self.startbtn.clicked.connect(self.firsttime)
 
-        self.spacer = QSpacerItem(100, 25)
+        self.layout.setColumnStretch(0, 1)
+        self.layout.setColumnStretch(2, 1)
+        self.layout.setRowStretch(0, 1)
+        self.layout.setRowStretch(3, 1)
 
-        self.layout.addItem(self.spacer, 0, 1)
-        self.layout.addItem(self.spacer, 1, 0)
-        self.layout.addItem(QSpacerItem(100, 75), 2, 3)
-        self.layout.addItem(QSpacerItem(100, 75), 3, 1)
         self.layout.addWidget(self.namelabel, 1, 1)
         self.layout.addWidget(self.startbtn, 2, 1)
 
         self.show()
 
+
     def firsttime(self):
-        
+
         if exists("param/kartParam.bin") & exists("param/driverParam.bin"):
             karthash = globalvars.kart()
             driverhash = globalvars.driver()
@@ -107,7 +110,8 @@ class startUI(QWidget):
             if (karthash == globalvars.hashkart) & (driverhash == globalvars.hashdriver):
                 import ProjectWindow
                 self.projWin = ProjectWindow.ProjectWindow()
-                self.destroy()
+                self.close()
+
 
             else:
                 errorWindow.error(0)
@@ -115,3 +119,6 @@ class startUI(QWidget):
 
         else:
             self.selectui = selectUI(300, 300)
+
+    def closefunc(self):
+        self.close()
