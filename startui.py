@@ -3,14 +3,12 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from os.path import *
-import faulthandler
 
 import ProjectWindow
 import errorWindow
 import globalvars
 import shutil
 
-faulthandler.enable()
 
 class selectUI(QWidget):
     def __init__(self, windowWidth, windowHeight):
