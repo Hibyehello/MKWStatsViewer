@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-import core
+import src.core as core
 
 
 class StatBox:
@@ -146,7 +146,6 @@ class StatBox:
         self.unsaved_progess = False
         for x in range(len(self.labels)):
             self.labels[x].setText(self.labelsText[x])
-
 
     def add_to_layout(self):
         self.layout.addWidget(self.GeneralLabel, 1, 0)

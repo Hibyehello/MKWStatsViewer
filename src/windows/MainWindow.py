@@ -1,12 +1,12 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-import WriteTab
-import CompareTab
-import PreviewTab
-import AccelTab
-import ItemTab
-import SettingsWindow
+import src.widgets.WriteTab as WriteTab
+import src.widgets.CompareTab as CompareTab
+import src.widgets.PreviewTab as PreviewTab
+import src.widgets.AccelTab as AccelTab
+import src.widgets.ItemTab as ItemTab
+import src.windows.SettingsWindow as SettingsWindow
 
 
 class mainWindow(QMainWindow):
@@ -39,7 +39,6 @@ class mainWindow(QMainWindow):
         self.editMenu.addAction(self.a_settings)
 
         self.setMenuBar(self.menuBar)
-
 
     def closeEvent(self, a0: QCloseEvent) -> None:
         from main import Quit
@@ -91,7 +90,7 @@ class TabWidget(QWidget):
         # Initialize tab screen
         self.tabs = QTabWidget()
         self.writetab = WriteTab.WriteTab(self.current_displayed, self.characters, self.character_icons,
-                                         self.vehicles, self.vehicle_icons)
+                                          self.vehicles, self.vehicle_icons)
         self.comparetab = CompareTab.CompareTab()
         self.previewtab = PreviewTab.PreviewTab()
         self.acceltab = AccelTab.AccelTab()
@@ -110,4 +109,3 @@ class TabWidget(QWidget):
         # Add tabs to widget
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
-

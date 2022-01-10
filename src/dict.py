@@ -1,4 +1,4 @@
-import core
+import src.core as core
 
 stats = core.ParseParam()
 kart_param = "./param/kartParam.bin"

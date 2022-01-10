@@ -2,9 +2,9 @@ from PyQt5.QtWidgets import *
 from os.path import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-import core
-import dict
-import Statbox
+import src.core as core
+import src.dict as dict
+import src.statbox as Statbox
 import random
 import time
 

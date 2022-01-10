@@ -2,10 +2,11 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-import startui
+import src.windows.StartUI
 
 projectName = ""
 close = 0
+
 
 class ProjectWindow(QWidget):
     def __init__(self, parent=None):
@@ -41,7 +42,6 @@ class ProjectWindow(QWidget):
 
         self.show()
 
-
     def oncreate(self):
         global projectName
         projectName = self.nameInput.text()
@@ -51,9 +51,6 @@ class ProjectWindow(QWidget):
         self.close()
 
     def tempfunc(self):
-        import mainwindow
+        import src.windows.MainWindow as mainwindow
         self.mainwin = mainwindow.mainWindow(self)
         self.destroy()
-
-
-

@@ -4,9 +4,9 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from os.path import *
 
-import ProjectWindow
-import errorWindow
-import globalvars
+import src.windows.ProjectWindow as ProjectWindow
+import src.windows.ErrorWindow as ErrorWindow
+import src.globalvars as globalvars
 import shutil
 
 
@@ -98,7 +98,6 @@ class startUI(QWidget):
 
         self.show()
 
-
     def firsttime(self):
 
         if exists("param/kartParam.bin") & exists("param/driverParam.bin"):
@@ -106,11 +105,8 @@ class startUI(QWidget):
             driverhash = globalvars.driver()
             print(karthash, "\n" + driverhash, "\n")
             if (karthash == globalvars.hashkart) & (driverhash == globalvars.hashdriver):
-                import ProjectWindow
                 self.projWin = ProjectWindow.ProjectWindow()
                 self.close()
-
-
             else:
                 errorWindow.error(0)
                 self.selectui = selectUI(300, 300)
