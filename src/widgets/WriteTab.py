@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import *
+from PyQt6.QtWidgets import *
 from os.path import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+from PyQt6.QtGui import *
+from PyQt6.QtCore import *
 import src.core as core
 import src.dict as dict
 import src.statbox as Statbox
@@ -35,7 +35,7 @@ class WriteTab(QWidget):
         elif easteregg == 0:
             self.cheatingOnline = QLabel("NOTE: Jaden is Based")
         self.cheatingOnline.setWordWrap(True)
-        self.cheatingOnline.setAlignment(Qt.AlignLeft)
+        self.cheatingOnline.setAlignment(Qt.AlignmentFlag.AlignLeft)
 
         for entry in range(0, len(characters)):
             if character_icons[entry] != '':
@@ -68,7 +68,7 @@ class WriteTab(QWidget):
         self.kartselect.currentIndexChanged.connect(self.onKartChange)
         self.driverselect.currentIndexChanged.connect(self.onDriverChange)
 
-        font = QFont("Arial", 15, QFont.Bold)
+        font = QFont("Arial", 15, 2)
 
         self.cheatingOnline.setStyleSheet("color: rgb(255,0,0)")
 
@@ -86,8 +86,8 @@ class WriteTab(QWidget):
         self.paramselect.currentTextChanged.connect(lambda: self.setEditWindow())
         self.driverselect.currentTextChanged.connect(lambda: self.canBeSelected())
         self.kartselect.currentTextChanged.connect(lambda: self.canBeSelected())
-        self.editScroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.editScroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.editScroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        self.editScroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.editScroll.setWidgetResizable(True)
         self.editScroll.setWidget(self.Statbox.update_entry_stats(self.current_displayed))
 
@@ -99,7 +99,7 @@ class WriteTab(QWidget):
         self.setLayout(self.layout)
         self.driverselect.hide()
 
-        self.saveSC = QShortcut(QKeySequence.Save, self)
+        self.saveSC = QShortcut(QKeySequence.StandardKey.Save, self)
 
         if self.paramselect.currentIndex() == 0:
             self.saveSC.activated.connect(lambda: self.KartSave())

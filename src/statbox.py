@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import *
+from PyQt6.QtCore import *
 import src.core as core
 
 
@@ -116,8 +116,8 @@ class StatBox:
         self.WeightClassbox.setCurrentIndex(current_displayed[2])
 
         # Create a horizontal divider line
-        self.line.setFrameShape(QFrame.HLine)
-        self.line.setFrameShadow(QFrame.Sunken)
+        self.line.setFrameShape(QFrame.Shape.HLine)
+        self.line.setFrameShadow(QFrame.Shadow.Sunken)
         self.numWheelbox.currentIndexChanged.connect(lambda: self.onUpdate(0))
         self.DriftTypebox.currentIndexChanged.connect(lambda: self.onUpdate(1))
         self.WeightClassbox.currentIndexChanged.connect(lambda: self.onUpdate(2))
@@ -129,7 +129,7 @@ class StatBox:
         self.add_to_layout()
 
         # Set editWidget's layout to self.layout
-        self.pLayout.setAlignment(Qt.AlignTop)
+        self.pLayout.setAlignment(Qt.AlignmentFlag.AlignTop)
         self.pLayout.addLayout(self.layout, 0, 0)
         self.editWidget.setLayout(self.pLayout)
 

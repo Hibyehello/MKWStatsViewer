@@ -1,7 +1,7 @@
 import os
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import *
+from PyQt6.QtCore import *
 from os.path import *
 
 import src.windows.ProjectWindow as ProjectWindow
@@ -16,7 +16,7 @@ class selectUI(QWidget):
         if not os.path.isdir('./param'):
             os.mkdir('./param')
 
-        self.setWindowFlags(Qt.Window | Qt.CustomizeWindowHint | Qt.WindowStaysOnTopHint)
+        self.setWindowFlags(Qt.WindowType.Window | Qt.WindowType.CustomizeWindowHint | Qt.WindowType.WindowStaysOnTopHint)
         self.resize(windowWidth, windowHeight)
 
         self.kartLabel = QLabel("Select kartParam.bin", self)
@@ -45,16 +45,12 @@ class selectUI(QWidget):
         self.close()
 
     def kartparam(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "", "Bin Files (*.bin)", options=options)
+        fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "", "Bin Files (*.bin)", options=QFileDialog.Option.DontUseNativeDialog)
         if fileName:
             shutil.copyfile(fileName, "./param/kartParam.bin")
 
     def driverparam(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "", "Bin Files (*.bin)", options=options)
+        fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "", "Bin Files (*.bin)", options=QFileDialog.Option.DontUseNativeDialog)
         if fileName:
             shutil.copyfile(fileName, "./param/driverParam.bin")
 
@@ -64,7 +60,7 @@ class startUI(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("StatsViewer")
-        self.setWindowFlags(Qt.CustomizeWindowHint | Qt.WindowCloseButtonHint)
+        self.setWindowFlags(Qt.WindowType.CustomizeWindowHint | Qt.WindowType.WindowCloseButtonHint)
 
         self.height = 250
         self.width = 450
@@ -88,6 +84,8 @@ class startUI(QWidget):
         self.startbtn = QPushButton("Start", self)
         self.startbtn.clicked.connect(self.firsttime)
 
+        self.errorWindow = QErrorMessage()
+
         self.layout.setColumnStretch(0, 1)
         self.layout.setColumnStretch(2, 1)
         self.layout.setRowStretch(0, 1)
@@ -99,16 +97,15 @@ class startUI(QWidget):
         self.show()
 
     def firsttime(self):
-
         if exists("param/kartParam.bin") & exists("param/driverParam.bin"):
             karthash = globalvars.kart()
             driverhash = globalvars.driver()
             print(karthash, "\n" + driverhash, "\n")
-            if (karthash == globalvars.hashkart) & (driverhash == globalvars.hashdriver):
+            if (karthash != globalvars.hashkart) & (driverhash != globalvars.hashdriver):
                 self.projWin = ProjectWindow.ProjectWindow()
                 self.close()
             else:
-                errorWindow.error(0)
+                self.errorWindow.showMessage("Non-Vanilla Param Files!")
                 self.selectui = selectUI(300, 300)
 
         else:

@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import *
+from PyQt6.QtCore import *
 
 import src.windows.StartUI
 
@@ -12,7 +12,7 @@ class ProjectWindow(QWidget):
     def __init__(self, parent=None):
         super(ProjectWindow, self).__init__(parent)
 
-        self.setWindowFlags(Qt.CustomizeWindowHint | Qt.WindowCloseButtonHint)
+        self.setWindowFlags(Qt.WindowType.CustomizeWindowHint | Qt.WindowType.WindowCloseButtonHint)
 
         # Create Layout
         self.layout = QGridLayout()

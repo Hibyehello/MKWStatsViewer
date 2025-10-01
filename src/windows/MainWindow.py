@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import *
+from PyQt6.QtCore import *
 import src.widgets.WriteTab as WriteTab
 import src.widgets.CompareTab as CompareTab
 import src.widgets.PreviewTab as PreviewTab
@@ -13,7 +13,7 @@ class mainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._createMenuBar()
-        self.setWindowFlags(Qt.Window)
+        self.setWindowFlags(Qt.WindowType.Window)
         self.setWindowTitle('StatsViewer')
         self.setMinimumSize(350, 150)
         self.setCentralWidget(TabWidget(self))
@@ -40,9 +40,7 @@ class mainWindow(QMainWindow):
 
         self.setMenuBar(self.menuBar)
 
-    def closeEvent(self, a0: QCloseEvent) -> None:
-        from main import Quit
-        Quit()
+    # def closeEvent(self, a0: QCloseEvent) -> None:
 
 
 class TabWidget(QWidget):
